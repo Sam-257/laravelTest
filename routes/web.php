@@ -37,6 +37,7 @@ Route::get('/people', [PeopleController::class,'index']);
 Route::post('/people', [PeopleController::class,'people_register']);
 Route::get('/people_table',[PeopleController::class,'people_view']);
 Route::get('people_edit/{id}',[PeopleController::class,'people_edit']);
+Route::post('people_update/{id}',[PeopleController::class,'people_update']);
 Route::get('/people_delete/{id}',[PeopleController::class,'people_delete']);
 
     

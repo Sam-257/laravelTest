@@ -8,7 +8,10 @@ use App\Models\People;
 class PeopleController extends Controller
 {
     public function index(){
-        return view('people');
+        $url = url('/people');
+        $isRegister = True;
+        $data = compact('url','isRegister');
+        return view('people')->with($data);
     }
     public function people_register(Request $request){
         //Validation of Form input at server side.........................
@@ -50,10 +53,23 @@ class PeopleController extends Controller
             return redirect('people_table');
         }
         else{
-            
+            $url = url('/people_update').'/'.$id;
+            $isRegister = False;
+            $data = compact('person','url','isRegister');
+            return view('people')->with($data);
         }
     }
-    
+    public function people_update($id,Request $request){
+        $person = People::find($id);
+        $person->people_name = $request['people_name'];
+        $person->people_email = $request['people_email'];
+        $person->people_gender = $request['people_gender'];
+        $person->people_address = $request['people_address'];
+        $person->save();
+        return redirect('people_table');
+
+    }
+
     //Delete using ORM........................................................
     public function people_delete($id){
         $person = People::find($id);
